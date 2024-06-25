@@ -1,0 +1,87 @@
+<style>
+    .messages-container {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1050;
+        max-width: 1200px;
+        background-color: #fff;
+        color: #000;
+        border-radius: 15px;
+    }
+    
+    .alert {
+        padding: 0.7rem 5rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+    
+    .alert-dismissible {
+        padding-right: 4rem;
+    }
+    
+    .alert-dismissible .btn-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        z-index: 2;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+    
+    .btn-close {
+        margin-top: 10px;
+        box-sizing: content-box;
+        width: 1em;
+        height: 1em;
+        padding: 0.25em 0.25em;
+        color: inherit;
+        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='currentColor'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586l6.293-6.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E") center/1em auto no-repeat;
+        border: 0;
+        border-radius: 0.25rem;
+        opacity: 0.7;
+        cursor: pointer;
+    }
+    
+    .btn-close:hover {
+        opacity: 1;
+    }
+    
+    .btn-close:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+</style>
+
+
+{% if messages %}
+<div class="messages-container" >
+    {% for message in messages %}
+        <div id="alert{{ forloop.counter }}" class="alert {{ message.tags }} alert-dismissible fade show text-center" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert('alert{{ forloop.counter }}')"></button>
+        </div>
+
+        <script>
+            function closeAlert(alertId) {
+                var alertElement = document.getElementById(alertId);
+                alertElement.style.opacity = 0;
+                setTimeout(function() {
+                    alertElement.style.display = 'none';
+                }, 150);
+            }
+
+            setTimeout(function () {
+                closeAlert('alert{{ forloop.counter }}');
+            }, 5000);
+        </script>
+    {% endfor %}
+</div>
+{% endif %}

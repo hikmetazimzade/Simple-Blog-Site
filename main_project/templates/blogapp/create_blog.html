@@ -1,0 +1,44 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block page_title %}Create Blog{% endblock  %}
+{% block head_files %}
+<link rel="stylesheet" href="{% static "css/create_blog.css" %}">
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>.
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="top_p">
+    <p>Create Blog</p>
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="form_section">
+        {% if form.content.errors %}{{ form.content.errors.0 }}{% endif %}
+        <div class="form_element">
+        {{ form.blog_name }}
+        </div>
+        
+        <div class="form_element">
+            {{ form.content }}
+        </div>
+        
+        <div class="submit_button">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+    
+</form>
+{% endblock %}
+
+
+{% block js_files %}
+<script>
+    CKEDITOR.replace("id_content")
+</script>
+{% endblock %}

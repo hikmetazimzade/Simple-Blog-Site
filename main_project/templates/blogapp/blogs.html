@@ -1,0 +1,26 @@
+{% extends "partials/base.html" %}
+{% load static filters %}
+{% block page_title %} Blogs {% endblock %}
+{% block head_files %}<link rel="stylesheet" href="{% static "css/blogs.css" %}">{% endblock  %}
+
+
+{% block content %}
+<div class="container">
+    {% for blog in curr_blogs %}
+    <div class="card">
+        <div class="card__body">
+          <span class="tag tag-blue">{{ blog.categories.all.0 }}</span>
+          <h4><a href="{% url "blog" blog.id %}" class="blog_link">{{ blog.blog_name }}</a></h4>
+          {{ blog.content|decode_entities|striptags|decode_entities|truncatewords:30 }}
+        </div>
+        <div class="card__footer">
+          <div class="user">
+            <div class="user__info">
+              <h5>{{ blog.user.username }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock  %}

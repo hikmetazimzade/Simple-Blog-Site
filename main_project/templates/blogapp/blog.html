@@ -1,0 +1,62 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block page_title %} Blog {% endblock %}
+
+{% block head_files %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="blog_flex">
+    {{ curr_blog.content | safe }}
+    <div style="text-align: center; margin-top: 20px;">
+        <form id="likeForm" method="POST">
+            {% csrf_token %}
+            <button type="button" class="like-button" id="likeBtn">Like</button>
+        </form>
+        <p id="likeCount">Like Number: {{ curr_blog.like_number }}</p>
+    </div>
+
+    <div class="comment-section">
+        <h3>Comments</h3>
+        <ul id="commentList">
+            {% for comment in comments %}
+            <li class = "list_element">{{ comment.content }} - <b>{{ comment.user }}</b></li>
+            {% endfor %}
+        </ul>
+        <form id="commentForm" method="POST">
+            {% csrf_token %}
+            {{ form.comment }}
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_files %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#likeBtn").click(function(){
+        $.ajax({
+            url: "{% url 'like_blog' curr_blog.id %}",
+            type: "POST",
+            data: {
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+            },
+            success: function(response){
+                if(response.success){
+                    $("#likeCount").text("Like Number: " + response.like_number);
+                } else {
+                    alert("Error: Could not update likes.");
+                }
+            },
+            error: function(){
+                alert("An error occurred. Please try again.");
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

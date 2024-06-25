@@ -1,0 +1,28 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block page_title %}Home{% endblock  %}
+{% block head_files %}<link rel="stylesheet" href="{% static "css/home.css" %}"> {% endblock  %}
+
+{% block content %}
+{% include "partials/messages.html" %}
+<div class="container">
+    <main class="content">
+        <section id="home">
+            <h2>Home</h2>
+            <p>This is the homepage of blog website. Here you can find various blogs about different topics and the services .</p>
+        </section>
+        <section id="about">
+            <h2>About</h2>
+            <p>Learn more about me and my background.</p>
+        </section>
+        <section id="services">
+            <h2>Services</h2>
+            <p>Discover the services I offer and how I can help you.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Get in touch with me through the contact form.</p>
+        </section>
+    </main>
+</div>
+{% endblock  %}
