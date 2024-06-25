@@ -39,4 +39,5 @@ To set up the project locally, follow these steps:
 
 4. **Start Server:**
    ```bash
+   cd main_project
    python manage.py runserver
