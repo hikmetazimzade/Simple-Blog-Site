@@ -34,6 +34,7 @@ To set up the project locally, follow these steps:
 
 3. **Run Migrations:**
    ```bash
+   python manage.py makemigrations
    python manage.py migrate
 
 4. **Start Server:**
